@@ -1,0 +1,103 @@
+<div class="container mt-4 employee-form-container">
+    <h2 class="mb-4 employee-form-title">{{formTitle}}</h2>
+
+    <form (ngSubmit)="saveEmployee()" class="employee-form">
+        <!-- Name -->
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control employee-input" [(ngModel)]="employee.name" name="name" required>
+        </div>
+
+        <!-- Profile Image Selection -->
+        <!-- Profile Image Selection -->
+        <div class="mb-3">
+            <label class="form-label">Profile Image</label>
+            <div class="d-flex align-items-center">
+                <label class="me-3">
+            <input type="radio" name="profilePic" [(ngModel)]="employee.profilePic" value="assets/2.png" class="me-2">
+            <img src="assets/2.png" class="rounded-circle" width="40">
+        </label>
+                <label class="me-3">
+            <input type="radio" name="profilePic" [(ngModel)]="employee.profilePic" value="assets/3.png" class="me-2">
+            <img src="assets/3.png" class="rounded-circle" width="40">
+        </label>
+                <label>
+            <input type="radio" name="profilePic" [(ngModel)]="employee.profilePic" value="assets/4.png" class="me-2">
+            <img src="assets/4.png" class="rounded-circle" width="40">
+        </label>
+            </div>
+        </div>
+
+
+        <!-- Gender -->
+        <div class="mb-3">
+            <label class="form-label">Gender</label>
+            <div>
+                <input type="radio" name="gender" [(ngModel)]="employee.gender" value="Male" class="me-1"> Male
+                <input type="radio" name="gender" [(ngModel)]="employee.gender" value="Female" class="ms-3 me-1"> Female
+            </div>
+        </div>
+
+        <!-- Department -->
+        <div class="mb-3">
+            <label class="form-label">Department</label>
+            <div>
+                <ng-container *ngFor="let dept of ['HR', 'Sales', 'Finance', 'Engineer', 'Others']">
+                    <input type="checkbox" (change)="toggleDepartment(dept)" [checked]="employee.department.includes(dept)" class="me-1">
+                    <span class="department-badge"> {{ dept }} </span>
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- Salary Selection -->
+        <div class="mb-3 salary-container">
+            <label class="form-label">Salary</label>
+            <div class="salary-dropdown">
+                <i class="bi bi-cash-coin salary-icon"></i>
+                <select class="form-select employee-input salary-select" [(ngModel)]="employee.salary" name="salary">
+            <option value="" disabled selected>Select Salary</option>
+            <option value="30000">₹30,000</option>
+            <option value="40000">₹40,000</option>
+            <option value="50000">₹50,000</option>
+            <option value="60000">₹60,000</option>
+            <option value="70000">₹70,000</option>
+            <option value="80000">₹80,000</option>
+        </select>
+            </div>
+        </div>
+
+
+        <!-- Start Date (Dropdowns) -->
+        <div class="mb-3">
+            <label class="form-label">Start Date</label>
+            <div class="d-flex">
+                <select class="form-select me-2 employee-input" [(ngModel)]="employee.startDate.day" name="day">
+                    <option value="" disabled selected>Day</option>
+                    <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                </select>
+                <select class="form-select me-2 employee-input" [(ngModel)]="employee.startDate.month" name="month">
+                    <option value="" disabled selected>Month</option>
+                    <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                </select>
+                <select class="form-select employee-input" [(ngModel)]="employee.startDate.year" name="year">
+                    <option value="" disabled selected>Year</option>
+                    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <textarea class="form-control employee-input" [(ngModel)]="employee.note" name="note"></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center mt-3">
+            <button type="submit" class="btn btn-success btn-lg employee-btn me-2">
+                {{ employeeId ? 'Update' : 'Submit' }} <!-- ✅ Dynamic Button Text -->
+            </button>
+            <a class="btn btn-secondary btn-lg employee-btn ms-2" routerLink="/">Cancel</a>
+        </div>
+    </form>
+</div>

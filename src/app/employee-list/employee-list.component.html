@@ -1,0 +1,50 @@
+<div class="container mt-4 employee-container">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-2 py-2 employee-header">
+        <h3 class="mb-0 fw-bold employee-title">
+            Employee Details
+        </h3>
+
+        <div class="d-flex align-items-center">
+            <input type="text" class="form-control form-control-sm me-2 employee-search" placeholder="Search Employee" [(ngModel)]="searchText">
+            <button class="btn btn-success btn-sm d-flex align-items-center employee-add-btn" (click)="goToAddEmployee()"> 
+                <i class="bi bi-plus-lg me-1"></i> Add User
+            </button>
+        </div>
+    </div>
+
+    <!-- Employee Table -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle employee-table">
+            <thead class="table-dark">
+                <tr>
+                    <th>NAME</th>
+                    <th>GENDER</th>
+                    <th>DEPARTMENT</th>
+                    <th>SALARY</th>
+                    <th>START DATE</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of filteredEmployees()" class="employee-row">
+                    <td class="d-flex align-items-center">
+                        <img [src]="employee.profilePic" class="rounded-circle me-2 employee-img" width="40" height="40" /> {{ employee.name }}
+                    </td>
+                    <td>{{ employee.gender }}</td>
+                    <td>
+                        <span class="badge bg-light text-success border border-success me-1 department-badge" *ngFor="let dept of employee.department">
+                            {{ dept }}
+                        </span>
+                    </td>
+                    <td>₹ {{ employee.salary }}</td>
+                    <td>{{ employee.startDate }}</td>
+                    <td>
+                        <i class="bi bi-trash text-danger me-2 delete-icon" role="button" (click)="deleteEmployee(employee.id)"></i>
+                        <i class="bi bi-pencil text-primary edit-icon" role="button" [routerLink]="['/edit', employee.id]"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
